@@ -40,7 +40,10 @@ export const Content = styled.div`
   padding-left: 36px;
   padding-right: 16px;
   font-family: "Dancing Script", cursive;
-  font-size: 16px;
+  font-size: 19px;
+  @media only screen and (min-width: 800px) {
+    font-size: 32px;
+  }
 `;
 
 export const StyledButton = styled.button`

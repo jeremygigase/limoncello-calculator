@@ -7,7 +7,7 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1em 1em 0 1em;
+
   text-align: center;
   overflow: scroll;
 
@@ -19,8 +19,8 @@ export const StyledForm = styled.form`
   input {
     margin: 0.8em 0;
     text-align: center;
-    font-size: 0.8em;
-    padding: 0.4em;
+    font-size: 0.5em;
+    padding: 0.6em;
     border: none;
     border-radius: 16px;
     background: #fff6d6;
@@ -33,12 +33,12 @@ export const StyledSubmit = styled.input`
   background: #fff6d6;
   border-radius: 16px;
   outline: none;
-  padding: 2em;
+  padding: 1.2em;
 `;
 
 export const StyledSelect = styled.select`
-  margin: 1em 0;
-  padding: 1em;
+  margin: 1.2em 0;
+  padding: 0.8em;
   border: none;
   background: #fff6d6;
   border-radius: 16px;
@@ -165,10 +165,8 @@ const Form = ({
         <option value='0.675'>Normal</option>
         <option value='0.725'>Very Sweet</option>
       </StyledSelect>
-      {/* {submitted && !amount && (
-        <div className='invalid-feedback'>A number is required</div>
-      )} */}
-      <StyledSubmit type='submit' value='Submit' className='submit' />
+
+      <StyledSubmit type='submit' value='Make Limoncello!' className='submit' />
     </StyledForm>
   );
 };
