@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 export const StyledRecipe = styled.div`
-  position: relative;
-  grid-area: recipe;
-  border-top-right-radius: 50%;
-  background-color: #f6c851;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 `;
 
 export const Paper = styled.div`
@@ -14,6 +17,8 @@ export const Paper = styled.div`
   padding-bottom: 16px;
   background-color: white;
   box-shadow: 0px 0px 5px 0px #888;
+  height: 100vh;
+  width: 100%;
 
   ::before {
     content: "";
@@ -38,12 +43,25 @@ export const Content = styled.div`
   font-size: 16px;
 `;
 
-const Recipe = ({ clicked }) => {
+export const StyledButton = styled.button`
+  font-family: "Dancing Script", cursive;
+  font-size: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  outline: none;
+`;
+
+const Recipe = ({ clicked, setClicked }) => {
   return (
-    <StyledRecipe>
+    <>
       {clicked && (
-        <>
+        <StyledRecipe>
           <Paper>
+            <StyledButton onClick={() => setClicked(!clicked)}>
+              {clicked ? "Hide Recipe?" : "Show Recipe?"}
+            </StyledButton>
             <Pattern>
               <Content>
                 <p>Recipe</p>
@@ -63,13 +81,15 @@ const Recipe = ({ clicked }) => {
                   Step 5: Mix the water, sugar mixture with the lemon flavored
                   alcohol
                 </p>
-                <p>Step 6: Now you have limoncello! Enjoy!</p>
+                <p>Step 6: Store in the freezer until cold</p>
+                <p>Step 7: Now you have limoncello! Enjoy!</p>
+                <p>recipe by Rob</p>
               </Content>
             </Pattern>
           </Paper>
-        </>
-      )}
-    </StyledRecipe>
+        </StyledRecipe>
+      )}{" "}
+    </>
   );
 };
 

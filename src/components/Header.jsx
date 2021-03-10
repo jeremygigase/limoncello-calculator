@@ -5,7 +5,6 @@ export const StyledHeader = styled.div`
   grid-area: header;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  background-color: #f6c851;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,16 +13,9 @@ export const StyledHeader = styled.div`
   font-family: "Helvetica";
   color: white;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.6em;
   padding: 0 0.4em;
   position: relative;
-
-  @media (min-width: 800px) {
-    border-top-left-radius: 100%;
-    border-top-right-radius: 0;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
 
   div {
     position: absolute;
@@ -52,13 +44,15 @@ export const StyledHeader = styled.div`
   }
 `;
 
+//background-color: #f6c851;
+
 const Header = () => {
   return (
     <StyledHeader>
-      <div class='top left'></div>
-      <div class='top right'></div>
-      <div class='bottom left'></div>
-      <div class='bottom right'></div>
+      <div className='top left'></div>
+      <div className='top right'></div>
+      <div className='bottom left'></div>
+      <div className='bottom right'></div>
       <p>Limoncello</p>
       <p>Calculator!</p>
     </StyledHeader>

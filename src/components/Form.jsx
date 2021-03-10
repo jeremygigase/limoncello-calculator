@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled from "styled-components";
 
 export const StyledForm = styled.form`
@@ -8,14 +7,14 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f6c851;
-  padding: 1em;
+  padding: 1em 1em 0 1em;
   text-align: center;
+  overflow: scroll;
 
   label {
     text-align: center;
     color: white;
-    font-size: 0.8em;
+    font-size: 0.6em;
   }
   input {
     margin: 0.8em 0;
@@ -26,18 +25,6 @@ export const StyledForm = styled.form`
     border-radius: 16px;
     background: #fff6d6;
     outline: none;
-  }
-
-  @media (min-width: 800px) {
-    border-bottom-left-radius: 50%;
-    align-items: flex-end;
-    justify-content: flex-start;
-    label {
-      text-align: right;
-    }
-    input {
-      text-align: right;
-    }
   }
 `;
 
@@ -50,7 +37,7 @@ export const StyledSubmit = styled.input`
 `;
 
 export const StyledSelect = styled.select`
-  margin-top: 1em;
+  margin: 1em 0;
   padding: 1em;
   border: none;
   background: #fff6d6;
@@ -58,33 +45,113 @@ export const StyledSelect = styled.select`
   outline: none;
 `;
 
-const Form = ({ setAmount, setSubmitted, setSweetness, amount, submitted }) => {
+const Form = ({
+  setAmount,
+  setSubmitted,
+  setSweetness,
+  setSmallLemons,
+  setBigLemons,
+  amount,
+  submitted,
+  smallLemons,
+  bigLemons,
+}) => {
   const submitHandler = (e) => {
     e.preventDefault();
     setSubmitted(true);
-
-    // if (amount) {
-    //   //setSubmitted(false);
-    //   setAmount(0);
-    // }
   };
+
+  const [starter, setStarter] = React.useState();
+
+  let input;
+
+  if (starter === "total") {
+    input = (
+      <>
+        <label htmlFor='number' className='label'>
+          How much limoncello do you want to make (in liters)?
+        </label>
+        <input
+          className='input'
+          type='number'
+          id='amount'
+          name='amount'
+          value={amount}
+          onChange={(e) => {
+            setBigLemons();
+            setSmallLemons();
+            setAmount(e.target.value);
+          }}
+          required
+        />
+      </>
+    );
+  }
+  if (starter === "small-lemons") {
+    input = (
+      <>
+        <label htmlFor='number' className='label'>
+          How many small lemons do you have?
+        </label>
+        <input
+          className='input'
+          type='number'
+          id='lemons'
+          name='lemons'
+          value={smallLemons}
+          onChange={(e) => {
+            setBigLemons();
+            setAmount();
+            setSmallLemons(e.target.value);
+          }}
+          required
+        />
+      </>
+    );
+  }
+  if (starter === "big-lemons") {
+    input = (
+      <>
+        <label htmlFor='number' className='label'>
+          How many big lemons do you have?
+        </label>
+        <input
+          className='input'
+          type='number'
+          id='lemons'
+          name='lemons'
+          value={bigLemons}
+          onChange={(e) => {
+            setAmount();
+            setSmallLemons();
+            setBigLemons(e.target.value);
+          }}
+          required
+        />
+      </>
+    );
+  }
 
   return (
     <StyledForm onSubmit={submitHandler}>
-      <label htmlFor='number' className='label'>
-        How much limoncello do you want to make (in liters)?
+      <label htmlFor='number'>
+        <p>How do you want to start with the amount of lemons you have?</p>
+        <p> Or the total amount you want to make?</p>
       </label>
-      <input
-        className='input'
-        type='number'
-        id='amount'
-        name='amount'
-        value={amount}
+      <StyledSelect
         onChange={(e) => {
-          setAmount(e.target.value);
+          setStarter(e.target.value);
         }}
-        required
-      />
+        id='starter'
+        name='starter'
+        required>
+        <option selected disabled hidden value=''></option>
+        <option value='small-lemons'>Small Lemons</option>
+        <option value='big-lemons'>Big Lemons</option>
+        <option value='total'>Total</option>
+      </StyledSelect>
+      {input}
+
       <label htmlFor='number'>How sweet do you want your limoncello?</label>
       <StyledSelect
         onChange={(e) => {
@@ -93,15 +160,14 @@ const Form = ({ setAmount, setSubmitted, setSweetness, amount, submitted }) => {
         id='sweetness'
         name='sweetness'
         required>
+        <option selected disabled hidden value=''></option>
         <option value='0.625'>Not Very</option>
-        <option selected='selected' value='0.675'>
-          Normal
-        </option>
+        <option value='0.675'>Normal</option>
         <option value='0.725'>Very Sweet</option>
       </StyledSelect>
-      {submitted && !amount && (
+      {/* {submitted && !amount && (
         <div className='invalid-feedback'>A number is required</div>
-      )}
+      )} */}
       <StyledSubmit type='submit' value='Submit' className='submit' />
     </StyledForm>
   );
